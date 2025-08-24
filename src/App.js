@@ -5,6 +5,9 @@ import { SOCIAL_MEDIA_LINKS, openSocialMediaLink } from './data/socialMedia';
 import ProductImage from './components/ProductImage';
 import SocialMediaIcon from './components/SocialMediaIcon';
 import ProductModal from './components/ProductModal';
+import { CartProvider } from './context/CartContext';
+import OrderButton from './components/OrderButton';
+import WelcomeMessage from './components/WelcomeMessage';
 
 // Scroll Indicator Component
 const ScrollIndicator = () => {
@@ -164,7 +167,7 @@ const ProductCard = ({ product }) => {
         {/* Click to View Options hint */}
         <div className="mt-4 text-center">
           <div className="text-blue-600 font-semibold text-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-            Tıklayın ve Seçenekleri Görün
+            
           </div>
         </div>
       </div>
@@ -182,17 +185,25 @@ const ProductCard = ({ product }) => {
 // Main App Component
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <ScrollDownIndicator />
-      <main className="main-content">
-        <div className="products-grid">
-          {PRODUCTS.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </main>
-    </div>
+    <CartProvider>
+      <div className="App">
+        <Header />
+        <ScrollDownIndicator />
+        <main className="main-content">
+          <div className="products-grid">
+            {PRODUCTS.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </main>
+        
+        {/* Order Button */}
+        <OrderButton />
+        
+        {/* Welcome Message */}
+        <WelcomeMessage />
+      </div>
+    </CartProvider>
   );
 }
 

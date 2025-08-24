@@ -2,15 +2,15 @@
 export const PRODUCTS = [
   {
     id: 1,
-    name: "abc su",
-    price: "25 TL",
+    name: "Fuska Su",
+    price: "Seçenekleri Görün",
     image: null, // Resim path'i buraya gelecek: "/images/abc-su.jpg"
     imagePlaceholder: "💧", // Resim yüklenene kadar gösterilecek emoji
     whatsappMessage: "Merhaba Sultan Su sipariş etmek istiyorum. Adresim: ",
     subProducts: [
       {
         id: 11,
-        name: "Sultan Su 19L Damacana",
+        name: "Fuska Su 15L Cam Damacana",
         price: "25 TL",
         image: null,
         imagePlaceholder: "🏺",
@@ -18,7 +18,7 @@ export const PRODUCTS = [
       },
       {
         id: 12,
-        name: "Sultan Su 5L Bidon",
+        name: "Fuska Su 5L Bidon",
         price: "15 TL",
         image: null,
         imagePlaceholder: "🪣",
@@ -26,7 +26,7 @@ export const PRODUCTS = [
       },
       {
         id: 13,
-        name: "Sultan Su 1.5L Şişe",
+        name: "Fuska Su 1.5L Şişe",
         price: "3 TL",
         image: null,
         imagePlaceholder: "🍼",
@@ -34,7 +34,7 @@ export const PRODUCTS = [
       },
       {
         id: 14,
-        name: "Sultan Su 500ml Şişe",
+        name: "Fuska Su 0.5L Şişe",
         price: "2 TL",
         image: null,
         imagePlaceholder: "🥤",
@@ -42,7 +42,7 @@ export const PRODUCTS = [
       },
       {
         id: 15,
-        name: "Sultan Su Aylık Paket",
+        name: "Fuska Su 0.75L Cam Şişe",
         price: "200 TL",
         image: null,
         imagePlaceholder: "📦",
@@ -50,7 +50,7 @@ export const PRODUCTS = [
       },
       {
         id: 16,
-        name: "Sultan Su Bardak Su",
+        name: "Fuska Su 0.33L CamŞişe",
         price: "1 TL",
         image: null,
         imagePlaceholder: "🥛",
@@ -58,7 +58,7 @@ export const PRODUCTS = [
       },
       {
         id: 17,
-        name: "Sultan Su Sıcak İçecek",
+        name: "Fuska Su 0.33L Şişe",
         price: "5 TL",
         image: null,
         imagePlaceholder: "☕",
@@ -66,7 +66,7 @@ export const PRODUCTS = [
       },
       {
         id: 18,
-        name: "Sultan Su Özel Karışım",
+        name: "Fuska Su 1L Şişe",
         price: "8 TL",
         image: null,
         imagePlaceholder: "🧪",
@@ -77,7 +77,7 @@ export const PRODUCTS = [
   {
     id: 2,
     name: "premium su",
-    price: "35 TL",
+    price: "Seçenekleri Görün",
     image: null, // "/images/premium-su.jpg"
     imagePlaceholder: "⭐",
     whatsappMessage: "Merhaba Fuska Su sipariş etmek istiyorum. Adresim: ",
@@ -151,7 +151,7 @@ export const PRODUCTS = [
   {
     id: 3,
     name: "kaynak suyu",
-    price: "30 TL", 
+    price: "Seçenekleri Görün", 
     image: null, // "/images/kaynak-suyu.jpg"
     imagePlaceholder: "🏔️",
     whatsappMessage: "Merhaba Pınar Su sipariş etmek istiyorum. Adresim: ",
@@ -225,7 +225,7 @@ export const PRODUCTS = [
   {
     id: 4,
     name: "mineralli su",
-    price: "40 TL",
+    price: "Seçenekleri Görün",
     image: null, // "/images/mineralli-su.jpg"
     imagePlaceholder: "💎", 
     whatsappMessage: "Merhaba Bahar Su sipariş etmek istiyorum. Adresim: ",
@@ -299,7 +299,7 @@ export const PRODUCTS = [
   {
     id: 5,
     name: "bebek suyu",
-    price: "45 TL",
+    price: "Seçenekleri Görün",
     image: null, // "/images/bebek-suyu.jpg"
     imagePlaceholder: "👶",
     whatsappMessage: "Merhaba Taşkesti Su sipariş etmek istiyorum. Adresim: ",
@@ -373,7 +373,7 @@ export const PRODUCTS = [
   {
     id: 6,
     name: "alkalin su",
-    price: "50 TL", 
+    price: "Seçenekleri Görün", 
     image: null, // "/images/alkalin-su.jpg"
     imagePlaceholder: "⚖️",
     whatsappMessage: "Merhaba Munzur Su sipariş etmek istiyorum. Adresim: ",
@@ -447,7 +447,7 @@ export const PRODUCTS = [
   {
     id: 7,
     name: "sporcu suyu",
-    price: "35 TL",
+    price: "Seçenekleri Görün",
     image: null, // "/images/sporcu-suyu.jpg"
     imagePlaceholder: "💪",
     whatsappMessage: "Merhaba Buzdağı Su sipariş etmek istiyorum. Adresim: ",

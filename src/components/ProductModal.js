@@ -1,38 +1,38 @@
 import React from 'react';
-import { openWhatsApp } from '../config/whatsapp';
-import { trackWhatsAppClick, trackError } from '../utils/analytics';
+import { useCart } from '../context/CartContext';
 
-// Sub Product Card Component - Custom CSS
+// Sub Product Card Component - Cart System
 const SubProductCard = ({ subProduct }) => {
-  const handleSubProductClick = async () => {
-    try {
-      // Analytics tracking
-      trackWhatsAppClick(subProduct.name);
-      
-      // WhatsApp'ı aç
-      openWhatsApp(subProduct.name, subProduct.whatsappMessage);
-    } catch (error) {
-      trackError(error, 'Sub Product WhatsApp Click Handler');
-      
-      // Fallback: Direct WhatsApp link
-      const fallbackUrl = `https://wa.me/905551234567?text=${encodeURIComponent(subProduct.whatsappMessage)}`;
-      window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
-    }
+  const { addItem, removeItem, getItemQuantity } = useCart();
+  const quantity = getItemQuantity(subProduct.id);
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addItem(subProduct);
+  };
+
+  const handleRemoveFromCart = (e) => {
+    e.stopPropagation();
+    removeItem(subProduct);
+  };
+
+  const handleCardClick = () => {
+    addItem(subProduct);
   };
 
   return (
     <div 
-      onClick={handleSubProductClick}
       className="sub-product-card"
+      onClick={handleCardClick}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          handleSubProductClick();
+          handleCardClick();
         }
       }}
-      aria-label={`${subProduct.name} için WhatsApp ile sipariş ver`}
+      aria-label={`${subProduct.name} sepete ekle`}
     >
       {/* Sub Product Image */}
       <div className="sub-product-image">
@@ -66,12 +66,36 @@ const SubProductCard = ({ subProduct }) => {
         {subProduct.price}
       </div>
       
-      {/* WhatsApp hint */}
-      <div className="sub-product-hint">
-        <div className="sub-product-hint-text">
-          Tıklayın ve Sipariş Edin
+      {/* Quantity Controls */}
+      {quantity > 0 && (
+        <div className="quantity-controls">
+          <button 
+            onClick={handleRemoveFromCart}
+            className="quantity-btn minus-btn"
+            aria-label="Azalt"
+          >
+            −
+          </button>
+          <span className="quantity-display">{quantity}</span>
+          <button 
+            onClick={handleAddToCart}
+            className="quantity-btn plus-btn"
+            aria-label="Arttır"
+          >
+            +
+          </button>
         </div>
-      </div>
+      )}
+      
+      {/* Add to Cart Button */}
+      {quantity === 0 && (
+        <button 
+          onClick={handleAddToCart}
+          className="add-to-cart-btn"
+        >
+          Sepete Ekle
+        </button>
+      )}
     </div>
   );
 };
