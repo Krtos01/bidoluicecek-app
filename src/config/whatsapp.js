@@ -2,7 +2,7 @@
 
 export const WHATSAPP_CONFIG = {
   // WhatsApp telefon numarası (ülke kodu ile birlikte, + işareti olmadan)
-  phoneNumber: "905303099887", // Örnek: Türkiye için 90 + telefon numarası
+  phoneNumber: "905334336907", // Örnek: Türkiye için 90 + telefon numarası
   
   // Default mesaj şablonu
   defaultMessage: "Merhaba, {productName} sipariş etmek istiyorum.",
