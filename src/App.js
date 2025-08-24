@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { PRODUCTS } from './data/products';
-import { openWhatsApp } from './config/whatsapp';
-import { trackWhatsAppClick, trackError } from './utils/analytics';
 import { SOCIAL_MEDIA_LINKS, openSocialMediaLink } from './data/socialMedia';
 import ProductImage from './components/ProductImage';
 import SocialMediaIcon from './components/SocialMediaIcon';
+import ProductModal from './components/ProductModal';
 
 // Scroll Indicator Component
 const ScrollIndicator = () => {
@@ -116,81 +115,67 @@ const Header = () => {
   );
 };
 
-// Product Card Component with WhatsApp Integration
+// Product Card Component with Modal Integration
 const ProductCard = ({ product }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCardClick = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Analytics tracking
-      trackWhatsAppClick(product.name);
-      
-      // Biraz loading efekti için
-      setTimeout(() => {
-        openWhatsApp(product.name, product.whatsappMessage);
-        setIsLoading(false);
-      }, 300);
-    } catch (error) {
-      trackError(error, 'WhatsApp Card Click Handler');
-      setIsLoading(false);
-      
-      // Fallback: Direct WhatsApp link
-      const fallbackUrl = `https://wa.me/905551234567?text=${encodeURIComponent(product.whatsappMessage)}`;
-      window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
-    }
+  const handleCardClick = () => {
+    // Modal'ı aç
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div 
-      onClick={handleCardClick}
-      className="
-        product-card group relative cursor-pointer
-        transform transition-all duration-300
-        hover:scale-105 hover:shadow-2xl
-        active:scale-95
-      "
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleCardClick();
-        }
-      }}
-      aria-label={`${product.name} için WhatsApp ile iletişime geç`}
-    >
-      {/* Loading Overlay */}
-      {isLoading && (
-        <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10 rounded-[24px]">
-          <div className="flex flex-col items-center gap-3 text-green-600">
-            <div className="w-8 h-8 border-3 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-            <span className="font-medium text-lg">WhatsApp açılıyor...</span>
+    <>
+      <div 
+        onClick={handleCardClick}
+        className="
+          product-card group relative cursor-pointer
+          transform transition-all duration-300
+          hover:scale-105 hover:shadow-2xl
+          active:scale-95
+        "
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleCardClick();
+          }
+        }}
+        aria-label={`${product.name} ürün seçeneklerini görüntüle`}
+      >
+        <div className="product-image">
+          <ProductImage 
+            src={product.image}
+            alt={`${product.name} ürün resmi`}
+            placeholder={product.imagePlaceholder}
+            className="image-placeholder"
+          />
+        </div>
+        
+        <div className="product-name">{product.name}</div>
+        
+        <div className="product-price">{product.price}</div>
+        
+        {/* Click to View Options hint */}
+        <div className="mt-4 text-center">
+          <div className="text-blue-600 font-semibold text-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+            Tıklayın ve Seçenekleri Görün
           </div>
         </div>
-      )}
+      </div>
 
-      <div className="product-image">
-        <ProductImage 
-          src={product.image}
-          alt={`${product.name} ürün resmi`}
-          placeholder={product.imagePlaceholder}
-          className="image-placeholder"
-        />
-      </div>
-      
-      <div className="product-name">{product.name}</div>
-      
-      <div className="product-price">{product.price}</div>
-      
-      {/* Click to Contact hint */}
-      <div className="mt-4 text-center">
-        <div className="text-green-600 font-semibold text-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-          Tıklayın ve Sipariş Edin
-        </div>
-      </div>
-    </div>
+      {/* Product Modal */}
+      <ProductModal 
+        product={product}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+    </>
   );
 };
 
