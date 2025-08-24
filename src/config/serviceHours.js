@@ -23,7 +23,7 @@ export const DEFAULT_SERVICE_HOURS = {
   ],
   
   // Test modu (true olursa her zaman açık)
-  testMode: false
+  testMode: true
 };
 
 // Edge Config'den gelen ayarlarla birleştirilen aktif ayarlar

@@ -36,7 +36,7 @@ const WelcomeMessage = () => {
         
         <div className="welcome-message-content">
           <div className="welcome-message-icon">!</div>
-          <p>Lütfen ilk siparişinizde adresinizi eklemeyi unutmayın, Teşekkürler.</p>
+          <p>Hoşgeldiniz!Lütfen ilk siparişinizde adresinizi eklemeyi unutmayın, Teşekkürler.</p>
         </div>
         
         <div className="welcome-message-footer">

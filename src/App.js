@@ -98,7 +98,7 @@ const Header = () => {
       <ScrollIndicator />
       <div className="header-container">
         <div className="logo">
-          <h1>SU APP</h1>
+          <h1>Bİ DOLU İÇECEK</h1>
         </div>
         <div className="contact-info">
           <span className="phone">📞 0555 123 45 67</span>
