@@ -1,13 +1,20 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { isDamacana, isDamacanaOrderAllowed } from '../config/damacanaLimits';
 
 // Sub Product Card Component - Cart System
 const SubProductCard = ({ subProduct }) => {
   const { addItem, removeItem, getItemQuantity } = useCart();
   const quantity = getItemQuantity(subProduct.id);
+  const isDamacanaProduct = isDamacana(subProduct.id);
+  const damacanaCheck = isDamacanaProduct ? isDamacanaOrderAllowed() : { isAllowed: true };
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    // Damacana saat sınırı kontrolü
+    if (isDamacanaProduct && !damacanaCheck.isAllowed) {
+      return;
+    }
     addItem(subProduct);
   };
 
@@ -17,22 +24,33 @@ const SubProductCard = ({ subProduct }) => {
   };
 
   const handleCardClick = () => {
+    // Damacana saat sınırı kontrolü
+    if (isDamacanaProduct && !damacanaCheck.isAllowed) {
+      return;
+    }
     addItem(subProduct);
   };
 
+  // Damacana saat sınırı nedeniyle disabled mi?
+  const isDamacanaDisabled = isDamacanaProduct && !damacanaCheck.isAllowed;
+
   return (
     <div 
-      className="sub-product-card"
-      onClick={handleCardClick}
+      className={`sub-product-card ${isDamacanaDisabled ? 'sub-product-card-disabled' : ''}`}
+      onClick={isDamacanaDisabled ? undefined : handleCardClick}
       role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
+      tabIndex={isDamacanaDisabled ? -1 : 0}
+      onKeyDown={isDamacanaDisabled ? undefined : (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           handleCardClick();
         }
       }}
-      aria-label={`${subProduct.name} sepete ekle`}
+      aria-label={
+        isDamacanaDisabled 
+          ? `${subProduct.name} - ${damacanaCheck.message}`
+          : `${subProduct.name} sepete ekle`
+      }
     >
       {/* Sub Product Image */}
       <div className="sub-product-image">
@@ -88,13 +106,20 @@ const SubProductCard = ({ subProduct }) => {
       )}
       
       {/* Add to Cart Button */}
-      {quantity === 0 && (
+      {quantity === 0 && !isDamacanaDisabled && (
         <button 
           onClick={handleAddToCart}
           className="add-to-cart-btn"
         >
           Sepete Ekle
         </button>
+      )}
+      
+      {/* Damacana Saat Uyarısı */}
+      {isDamacanaDisabled && (
+        <div className="damacana-warning">
+          🕐 {damacanaCheck.message}
+        </div>
       )}
     </div>
   );

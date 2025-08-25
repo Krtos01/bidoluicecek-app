@@ -84,7 +84,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 21,
-        name: "Fuska Su Premium 19L",
+        name: "Pınar Su 15L Cam Damacana",
         price: "35 TL",
         image: null,
         imagePlaceholder: "🌟",
@@ -92,7 +92,7 @@ export const PRODUCTS = [
       },
       {
         id: 22,
-        name: "Fuska Su Premium 5L",
+        name: "Pınar Su 5L Bidon",
         price: "20 TL",
         image: null,
         imagePlaceholder: "💎",
@@ -100,7 +100,7 @@ export const PRODUCTS = [
       },
       {
         id: 23,
-        name: "Fuska Su Premium 1L",
+        name: "Pınar Su 1.5L Şişe",
         price: "8 TL",
         image: null,
         imagePlaceholder: "✨",
@@ -108,7 +108,7 @@ export const PRODUCTS = [
       },
       {
         id: 24,
-        name: "Fuska Su Premium 500ml",
+        name: "Pınar Su 0.5L Şişe",
         price: "5 TL",
         image: null,
         imagePlaceholder: "🥇",
@@ -116,7 +116,7 @@ export const PRODUCTS = [
       },
       {
         id: 25,
-        name: "Fuska Su Premium Paket",
+        name: "Pınar Su 0.75L Cam Şişe",
         price: "280 TL",
         image: null,
         imagePlaceholder: "🎁",
@@ -124,7 +124,7 @@ export const PRODUCTS = [
       },
       {
         id: 26,
-        name: "Fuska Su Premium Mini",
+        name: "Pınar Su 0.33L CamŞişe",
         price: "3 TL",
         image: null,
         imagePlaceholder: "🧊",
@@ -132,7 +132,7 @@ export const PRODUCTS = [
       },
       {
         id: 27,
-        name: "Fuska Su Premium Sıcak",
+        name: "Pınar Su 0.33L Şişe",
         price: "12 TL",
         image: null,
         imagePlaceholder: "🔥",
@@ -140,7 +140,7 @@ export const PRODUCTS = [
       },
       {
         id: 28,
-        name: "Fuska Su Premium Özel",
+        name: "Pınar Su 1L Şişe",
         price: "15 TL",
         image: null,
         imagePlaceholder: "👑",
@@ -158,7 +158,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 31,
-        name: "Pınar Su Doğal 19L",
+        name: "Munzur Su Damacana",
         price: "30 TL",
         image: null,
         imagePlaceholder: "⛰️",
@@ -166,7 +166,7 @@ export const PRODUCTS = [
       },
       {
         id: 32,
-        name: "Pınar Su Doğal 5L",
+        name: "Munzur Su Bidon",
         price: "18 TL",
         image: null,
         imagePlaceholder: "🌊",
@@ -174,7 +174,7 @@ export const PRODUCTS = [
       },
       {
         id: 33,
-        name: "Pınar Su Doğal 1.5L",
+        name: "Munzur Su 1.5L Şişe",
         price: "6 TL",
         image: null,
         imagePlaceholder: "🏞️",
@@ -182,7 +182,7 @@ export const PRODUCTS = [
       },
       {
         id: 34,
-        name: "Pınar Su Doğal 500ml",
+        name: "Munzur Su 0.5L Şişe",
         price: "4 TL",
         image: null,
         imagePlaceholder: "🗻",
@@ -190,7 +190,7 @@ export const PRODUCTS = [
       },
       {
         id: 35,
-        name: "Pınar Su Kaynak Paketi",
+        name: "Munzur Su 0.75L Cam Şişe",
         price: "240 TL",
         image: null,
         imagePlaceholder: "🏔️",
@@ -198,7 +198,7 @@ export const PRODUCTS = [
       },
       {
         id: 36,
-        name: "Pınar Su Soğuk",
+        name: "Munzur Su 0.33L CamŞişe",
         price: "7 TL",
         image: null,
         imagePlaceholder: "❄️",
@@ -206,7 +206,7 @@ export const PRODUCTS = [
       },
       {
         id: 37,
-        name: "Pınar Su Mineralli",
+        name: "Munzur Su 0.33L Şişe",
         price: "9 TL",
         image: null,
         imagePlaceholder: "💠",
@@ -214,7 +214,7 @@ export const PRODUCTS = [
       },
       {
         id: 38,
-        name: "Pınar Su Özel Kaynak",
+        name: "Munzur Su 1L Şişe",
         price: "12 TL",
         image: null,
         imagePlaceholder: "🌀",
@@ -232,7 +232,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 41,
-        name: "Bahar Su Mineralli 19L",
+        name: "Taşkesti Su 15L Cam Damacana",
         price: "40 TL",
         image: null,
         imagePlaceholder: "💍",
@@ -240,7 +240,7 @@ export const PRODUCTS = [
       },
       {
         id: 42,
-        name: "Bahar Su Mineralli 5L",
+        name: "Taşkesti Su 5L Bidon",
         price: "25 TL",
         image: null,
         imagePlaceholder: "💠",
@@ -248,7 +248,7 @@ export const PRODUCTS = [
       },
       {
         id: 43,
-        name: "Bahar Su Mineralli 1L",
+        name: "Taşkesti Su 1.5L Şişe",
         price: "10 TL",
         image: null,
         imagePlaceholder: "💎",
@@ -256,7 +256,7 @@ export const PRODUCTS = [
       },
       {
         id: 44,
-        name: "Bahar Su Mineralli 500ml",
+      name: "Taşkesti Su 0.5L Şişe",
         price: "7 TL",
         image: null,
         imagePlaceholder: "🔷",
@@ -264,7 +264,7 @@ export const PRODUCTS = [
       },
       {
         id: 45,
-        name: "Bahar Su Mineral Paketi",
+        name: "Taşkesti Su 0.75L Cam Şişe",
         price: "320 TL",
         image: null,
         imagePlaceholder: "📿",
@@ -272,7 +272,7 @@ export const PRODUCTS = [
       },
       {
         id: 46,
-        name: "Bahar Su Kalsiyum",
+        name: "Taşkesti Su 0.33L CamŞişe",
         price: "12 TL",
         image: null,
         imagePlaceholder: "🦴",
@@ -280,7 +280,7 @@ export const PRODUCTS = [
       },
       {
         id: 47,
-        name: "Bahar Su Magnezyum",
+        name: "Taşkesti Su 0.33L Şişe",
         price: "13 TL",
         image: null,
         imagePlaceholder: "⚡",
@@ -288,7 +288,7 @@ export const PRODUCTS = [
       },
       {
         id: 48,
-        name: "Bahar Su Özel Mineral",
+        name: "Taşkesti Su 1L Şişe",
         price: "18 TL",
         image: null,
         imagePlaceholder: "🧬",
@@ -306,7 +306,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 51,
-        name: "Taşkesti Bebek Suyu 19L",
+        name: "Bahar Su 15L Damacana",
         price: "45 TL",
         image: null,
         imagePlaceholder: "🍼",
@@ -314,7 +314,7 @@ export const PRODUCTS = [
       },
       {
         id: 52,
-        name: "Taşkesti Bebek Suyu 5L",
+        name: "Bahar Su 5L Bidon",
         price: "28 TL",
         image: null,
         imagePlaceholder: "👶",
@@ -322,7 +322,7 @@ export const PRODUCTS = [
       },
       {
         id: 53,
-        name: "Taşkesti Bebek Suyu 1L",
+        name: "Bahar Su 1.5L Şişe",
         price: "12 TL",
         image: null,
         imagePlaceholder: "🧸",
@@ -330,7 +330,7 @@ export const PRODUCTS = [
       },
       {
         id: 54,
-        name: "Taşkesti Bebek Suyu 500ml",
+        name: "Bahar Su 0.5L Şişe",
         price: "8 TL",
         image: null,
         imagePlaceholder: "🎀",
@@ -338,7 +338,7 @@ export const PRODUCTS = [
       },
       {
         id: 55,
-        name: "Taşkesti Bebek Paketi",
+        name: "Bahar Su 0.75L Cam Şişe",
         price: "360 TL",
         image: null,
         imagePlaceholder: "👼",
@@ -346,7 +346,7 @@ export const PRODUCTS = [
       },
       {
         id: 56,
-        name: "Taşkesti Bebek Mini",
+        name: "Bahar Su 0.33L CamŞişe",
         price: "5 TL",
         image: null,
         imagePlaceholder: "🐣",
@@ -354,7 +354,7 @@ export const PRODUCTS = [
       },
       {
         id: 57,
-        name: "Taşkesti Bebek Özel",
+        name: "Bahar Su 0.33L Şişe",
         price: "15 TL",
         image: null,
         imagePlaceholder: "💝",
@@ -362,7 +362,7 @@ export const PRODUCTS = [
       },
       {
         id: 58,
-        name: "Taşkesti Bebek Sterilli",
+        name: "Bahar Su 1L Şişe",
         price: "20 TL",
         image: null,
         imagePlaceholder: "🧼",
@@ -380,7 +380,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 61,
-        name: "Munzur Su Alkalin 19L",
+        name: "Buzdağı Su 15L Damacana",
         price: "50 TL",
         image: null,
         imagePlaceholder: "⚗️",
@@ -388,7 +388,7 @@ export const PRODUCTS = [
       },
       {
         id: 62,
-        name: "Munzur Su Alkalin 5L",
+        name: "Buzdağı Su 5L Bidon",
         price: "30 TL",
         image: null,
         imagePlaceholder: "🧪",
@@ -396,7 +396,7 @@ export const PRODUCTS = [
       },
       {
         id: 63,
-        name: "Munzur Su Alkalin 1L",
+        name: "Buzdağı Su 1.5L Şişe",
         price: "15 TL",
         image: null,
         imagePlaceholder: "⚖️",
@@ -404,7 +404,7 @@ export const PRODUCTS = [
       },
       {
         id: 64,
-        name: "Munzur Su Alkalin 500ml",
+        name: "Buzdağı Su 0.5L Şişe",
         price: "10 TL",
         image: null,
         imagePlaceholder: "🔬",
@@ -412,7 +412,7 @@ export const PRODUCTS = [
       },
       {
         id: 65,
-        name: "Munzur Su pH Paketi",
+        name: "Buzdağı Su 0.75L Cam Şişe",
         price: "400 TL",
         image: null,
         imagePlaceholder: "📊",
@@ -420,7 +420,7 @@ export const PRODUCTS = [
       },
       {
         id: 66,
-        name: "Munzur Su pH 9.5",
+        name: "Buzdağı Su 0.33L CamŞişe",
         price: "18 TL",
         image: null,
         imagePlaceholder: "🌿",
@@ -428,7 +428,7 @@ export const PRODUCTS = [
       },
       {
         id: 67,
-        name: "Munzur Su pH 10",
+        name: "Buzdağı Su 0.33L Şişe",
         price: "22 TL",
         image: null,
         imagePlaceholder: "🍀",
@@ -436,7 +436,7 @@ export const PRODUCTS = [
       },
       {
         id: 68,
-        name: "Munzur Su Özel pH",
+        name: "Buzdağı Su 1L Şişe",
         price: "25 TL",
         image: null,
         imagePlaceholder: "🌱",
@@ -454,7 +454,7 @@ export const PRODUCTS = [
     subProducts: [
       {
         id: 71,
-        name: "Buzdağı Sporcu Suyu 19L",
+        name: "Bahar Su 15L Damacana",
         price: "35 TL",
         image: null,
         imagePlaceholder: "🏋️",
@@ -462,7 +462,7 @@ export const PRODUCTS = [
       },
       {
         id: 72,
-        name: "Buzdağı Sporcu Suyu 5L",
+        name: "Bahar Su 5L Bidon",
         price: "22 TL",
         image: null,
         imagePlaceholder: "🏃",
@@ -470,7 +470,7 @@ export const PRODUCTS = [
       },
       {
         id: 73,
-        name: "Buzdağı Sporcu Suyu 1L",
+        name: "Bahar Su 1.5L Şişe",
         price: "8 TL",
         image: null,
         imagePlaceholder: "💪",
@@ -478,7 +478,7 @@ export const PRODUCTS = [
       },
       {
         id: 74,
-        name: "Buzdağı Sporcu Suyu 500ml",
+        name: "Bahar Su 0.5L Şişe",
         price: "6 TL",
         image: null,
         imagePlaceholder: "🥤",
@@ -486,7 +486,7 @@ export const PRODUCTS = [
       },
       {
         id: 75,
-        name: "Buzdağı Sporcu Paketi",
+        name: "Bahar Su 0.75L Cam Şişe",
         price: "280 TL",
         image: null,
         imagePlaceholder: "🏆",
@@ -494,7 +494,7 @@ export const PRODUCTS = [
       },
       {
         id: 76,
-        name: "Buzdağı Elektrolit",
+        name: "Bahar Su 0.33L CamŞişe",
         price: "12 TL",
         image: null,
         imagePlaceholder: "⚡",
@@ -502,7 +502,7 @@ export const PRODUCTS = [
       },
       {
         id: 77,
-        name: "Buzdağı Protein Su",
+        name: "Bahar Su 0.33L Şişe",
         price: "15 TL",
         image: null,
         imagePlaceholder: "🥛",
@@ -510,7 +510,7 @@ export const PRODUCTS = [
       },
       {
         id: 78,
-        name: "Buzdağı Özel Sporcu",
+        name: "Bahar Su 1L Şişe",
         price: "18 TL",
         image: null,
         imagePlaceholder: "🎯",

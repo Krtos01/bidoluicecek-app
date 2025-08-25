@@ -3,12 +3,17 @@ import { useCart } from '../context/CartContext';
 import { openWhatsApp } from '../config/whatsapp';
 import { trackWhatsAppClick, trackError } from '../utils/analytics';
 import { isServiceOpen, getServiceHoursText, getStoreStatus } from '../config/serviceHours';
+import { validateOrderAmount } from '../config/orderLimits';
+import { checkCartForDamacana } from '../config/damacanaLimits';
 
 const OrderButton = () => {
-  const { getTotalItems, getCartMessage, clearCart } = useCart();
+  const { getTotalItems, getTotalPrice, getCartMessage, clearCart, items } = useCart();
   const [serviceOpen, setServiceOpen] = useState(false);
   const [storeStatus, setStoreStatus] = useState(null);
   const totalItems = getTotalItems();
+  const totalPrice = getTotalPrice();
+  const orderValidation = validateOrderAmount(totalPrice);
+  const damacanaValidation = checkCartForDamacana(items);
 
   // Servis durumunu her dakika kontrol et
   useEffect(() => {
@@ -31,8 +36,8 @@ const OrderButton = () => {
   if (totalItems === 0) return null;
 
   const handleOrderClick = async () => {
-    // Servis kapalıysa çalışma
-    if (!serviceOpen) {
+    // Servis kapalıysa veya minimum tutar kontrolü geçmezse veya damacana saat sınırı varsa çalışma
+    if (!serviceOpen || !orderValidation.isValid || !damacanaValidation.isAllowed) {
       return;
     }
 
@@ -60,37 +65,59 @@ const OrderButton = () => {
     }
   };
 
+  // Buton durumunu belirle
+  const isButtonDisabled = !serviceOpen || !orderValidation.isValid || !damacanaValidation.isAllowed;
+  const buttonClass = isButtonDisabled ? 'order-button-disabled' : '';
+
   return (
     <div className="order-button-container">
       <button 
         onClick={handleOrderClick}
-        className={`order-button ${!serviceOpen ? 'order-button-disabled' : ''}`}
-        disabled={!serviceOpen}
-        aria-label={serviceOpen ? `${totalItems} ürün ile sipariş ver` : `Servis saatleri dışında, ${getServiceHoursText()}`}
+        className={`order-button ${buttonClass}`}
+        disabled={isButtonDisabled}
+        aria-label={
+          !serviceOpen 
+            ? `Servis saatleri dışında, ${getServiceHoursText()}`
+            : !orderValidation.isValid
+              ? orderValidation.message
+              : !damacanaValidation.isAllowed
+                ? damacanaValidation.message
+                : `${totalItems} ürün ile sipariş ver`
+        }
       >
         <div className="order-button-content">
           <span className="order-button-icon">
             {serviceOpen ? '🛒' : '🚫'}
           </span>
           <span className="order-button-text">
-            {serviceOpen 
-              ? 'Sipariş Ver' 
-              : storeStatus?.temporarilyClosed 
+            {!serviceOpen
+              ? storeStatus?.temporarilyClosed 
                 ? 'Geçici Olarak Kapalı'
                 : storeStatus?.maintenanceMode
                   ? 'Bakım Modunda'
                   : 'Servis Saatleri Dışındadır'
+              : !orderValidation.isValid
+                ? orderValidation.message
+                : !damacanaValidation.isAllowed
+                  ? damacanaValidation.message
+                  : `Sipariş Ver - ${totalPrice.toFixed(2)} TL`
             }
           </span>
-          {serviceOpen && (
-            <span className="order-button-count">{totalItems}</span>
+          {serviceOpen && orderValidation.isValid && damacanaValidation.isAllowed && (
+            <span className="order-button-count">{totalItems} ürün</span>
           )}
         </div>
-        {!serviceOpen && (
+        {isButtonDisabled && (
           <div className="order-button-hours">
-            {storeStatus?.reason 
-              ? storeStatus.reason
-              : `Servis Saatleri: ${getServiceHoursText()}`
+            {!serviceOpen
+              ? storeStatus?.reason 
+                ? storeStatus.reason
+                : `Servis Saatleri: ${getServiceHoursText()}`
+              : !orderValidation.isValid && totalPrice > 0
+                ? `Şu anki sepet: ${totalPrice.toFixed(2)} TL`
+                : !damacanaValidation.isAllowed && damacanaValidation.hasDamacana
+                  ? `Damacana siparişleri saat 19:00'dan sonra alınmaz`
+                  : ''
             }
           </div>
         )}

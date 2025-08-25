@@ -83,6 +83,14 @@ export const CartProvider = ({ children }) => {
     return state.items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const getTotalPrice = () => {
+    return state.items.reduce((total, item) => {
+      // Fiyat stringinden sayıyı çıkar (örn: "25 TL" -> 25)
+      const price = parseFloat(item.price.replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
+      return total + (price * item.quantity);
+    }, 0);
+  };
+
   const getCartMessage = () => {
     if (state.items.length === 0) return '';
     
@@ -90,7 +98,10 @@ export const CartProvider = ({ children }) => {
       `${item.quantity} adet - ${item.name}`
     );
     
-    return `${itemMessages.join('\n')} sipariş etmek istiyorum.`;
+    const totalPrice = getTotalPrice();
+    
+    
+    return `${itemMessages.join('\n')}\nsipariş etmek istiyorum.`;
   };
 
   const value = {
@@ -100,6 +111,7 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getItemQuantity,
     getTotalItems,
+    getTotalPrice,
     getCartMessage
   };
 

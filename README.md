@@ -32,6 +32,14 @@ npm start
 
 Uygulamanın servis saatleri `src/config/serviceHours.js` dosyasından yönetilir.
 
+## 💰 Minimum Sipariş Tutarı Konfigürasyonu
+
+Uygulamanın minimum sipariş tutarı `src/config/orderLimits.js` dosyasından yönetilir.
+
+## 🏺 Damacana Sipariş Saat Sınırlaması
+
+Damacana ürünlerinin sipariş saatleri `src/config/damacanaLimits.js` dosyasından yönetilir.
+
 ### Temel Ayarlar
 
 ```javascript
@@ -122,6 +130,140 @@ closedDates: [
 ]
 ```
 
+### Minimum Sipariş Tutarı Ayarları
+
+`src/config/orderLimits.js` dosyasından minimum sipariş tutarını ayarlayabilirsiniz:
+
+```javascript
+export const ORDER_LIMITS = {
+  // Minimum sipariş tutarı (TL)
+  minimumOrderAmount: 40,
+  
+  // Minimum tutar kontrolü aktif mi?
+  minimumOrderEnabled: true,
+  
+  // Minimum tutara ulaşmadığında gösterilecek mesaj
+  minimumOrderMessage: "Minimum sepet tutarı {amount} TL'dir",
+  
+  // Maksimum sipariş tutarı (isteğe bağlı - null = sınır yok)
+  maximumOrderAmount: null,
+  
+  // Maksimum tutar aşıldığında gösterilecek mesaj
+  maximumOrderMessage: "Maksimum sipariş tutarı {amount} TL'dir"
+};
+```
+
+#### Minimum Tutarı Değiştirme
+
+```javascript
+// 50 TL minimum yapmak için
+export const ORDER_LIMITS = {
+  minimumOrderAmount: 50,
+  minimumOrderEnabled: true,
+  // ...
+};
+
+// Minimum tutarı tamamen kapatmak için
+export const ORDER_LIMITS = {
+  minimumOrderEnabled: false,
+  // ...
+};
+```
+
+#### Maksimum Tutar Eklemek
+
+```javascript
+// 500 TL maksimum sipariş için
+export const ORDER_LIMITS = {
+  minimumOrderAmount: 40,
+  maximumOrderAmount: 500,
+  // ...
+};
+```
+
+### Damacana Saat Sınırı Ayarları
+
+`src/config/damacanaLimits.js` dosyasından damacana sipariş saatlerini ayarlayabilirsiniz:
+
+```javascript
+export const DAMACANA_LIMITS = {
+  // Damacana siparişlerinin kabul edildiği son saat (24 saat formatında)
+  cutoffHour: 19,
+  cutoffMinute: 0,
+  
+  // Damacana saat sınırı aktif mi?
+  enabled: true,
+  
+  // Saat sınırı aşıldığında gösterilecek mesaj
+  cutoffMessage: "Damacana siparişleri saat {time}'dan sonra alınmamaktadır",
+  
+  // Test modu (true olursa saat sınırı devre dışı)
+  testMode: false,
+  
+  // Damacana ürünlerini tanımlayan ID pattern'i (1 ile bitenler: 11, 21, 31...)
+  damacanaIdPattern: /1$/,
+  
+  // Hafta sonu farklı saat (isteğe bağlı)
+  weekendCutoffHour: 18, // Hafta sonu 1 saat erken
+  weekendCutoffMinute: 0,
+  weekendEnabled: true // false olursa hafta sonu aynı saat
+};
+```
+
+#### Damacana Saatlerini Değiştirme
+
+```javascript
+// 20:00'a kadar damacana siparişi için
+export const DAMACANA_LIMITS = {
+  cutoffHour: 20,
+  cutoffMinute: 0,
+  enabled: true
+};
+
+// Damacana saat sınırını kapatmak için
+export const DAMACANA_LIMITS = {
+  enabled: false
+};
+
+// Test modunda (saat sınırı yok)
+export const DAMACANA_LIMITS = {
+  testMode: true
+};
+```
+
+#### Hafta Sonu Farklı Saat
+
+```javascript
+// Hafta içi 19:00, hafta sonu 18:00
+export const DAMACANA_LIMITS = {
+  cutoffHour: 19,        // Hafta içi
+  weekendCutoffHour: 18, // Hafta sonu
+  weekendEnabled: true
+};
+
+// Hafta sonu aynı saat
+export const DAMACANA_LIMITS = {
+  weekendEnabled: false // Hafta sonu da 19:00
+};
+```
+
+### Damacana Saat Sınırı Nasıl Çalışır?
+
+1. **ID kontrolü**: 1 ile biten ürünler (11, 21, 31...) damacana olarak tanınır
+2. **Saat 19:00'dan önce**: Normal sipariş, kartlar tıklanabilir
+3. **Saat 19:00'dan sonra**: 
+   - Damacana kartları gri olur ve tıklanamaz
+   - "Damacana siparişleri saat 19:00'dan sonra alınmamaktadır" mesajı
+   - Sepette damacana varsa sipariş butonu gri olur
+4. **Diğer ürünler**: Saat sınırından etkilenmez
+
+### Minimum Tutar Nasıl Çalışır?
+
+1. **Sepet tutarı kontrol edilir**: Her ürün ekleme/çıkarma işleminde
+2. **40 TL altındaysa**: Sipariş butonu gri olur ve "Minimum sepet tutarı 40 TL'dir" yazar
+3. **Alt bilgi gösterilir**: "Şu anki sepet: 25.00 TL" 
+4. **40 TL ve üstündeyse**: Normal yeşil sipariş butonu görünür
+
 ### API Fonksiyonları
 
 #### `isServiceOpen()`
@@ -136,6 +278,14 @@ Servis saatlerini formatlanmış string olarak döndürür.
 ```javascript
 import { getServiceHoursText } from './config/serviceHours';
 const hours = getServiceHoursText(); // "09:00 - 22:00"
+```
+
+#### `validateOrderAmount(totalPrice)`
+Sipariş tutarının geçerli olup olmadığını kontrol eder.
+```javascript
+import { validateOrderAmount } from './config/orderLimits';
+const result = validateOrderAmount(35); 
+// { isValid: false, message: "Minimum sepet tutarı 40 TL'dir" }
 ```
 
 #### `getNextServiceTime()`
