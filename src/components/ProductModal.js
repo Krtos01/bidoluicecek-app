@@ -1,6 +1,8 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { isDamacana, isDamacanaOrderAllowed } from '../config/damacanaLimits';
+import ProductImage from './ProductImage';
+import { t } from '../config/language';
 
 // Sub Product Card Component - Cart System
 const SubProductCard = ({ subProduct }) => {
@@ -49,29 +51,17 @@ const SubProductCard = ({ subProduct }) => {
       aria-label={
         isDamacanaDisabled 
           ? `${subProduct.name} - ${damacanaCheck.message}`
-          : `${subProduct.name} sepete ekle`
+          : `${subProduct.name} ${t('addToCart')}`
       }
     >
       {/* Sub Product Image */}
       <div className="sub-product-image">
-        <div className="sub-product-image-placeholder">
-          {subProduct.image ? (
-            <img
-              src={subProduct.image}
-              alt={`${subProduct.name} resmi`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '16px'
-              }}
-            />
-          ) : (
-            <span>
-              {subProduct.imagePlaceholder}
-            </span>
-          )}
-        </div>
+        <ProductImage 
+          src={subProduct.image}
+          alt={`${subProduct.name} resmi`}
+          placeholder={subProduct.imagePlaceholder}
+          className="sub-product-image-placeholder"
+        />
       </div>
       
       {/* Sub Product Name */}
@@ -111,7 +101,7 @@ const SubProductCard = ({ subProduct }) => {
           onClick={handleAddToCart}
           className="add-to-cart-btn"
         >
-          Sepete Ekle
+          {t('addToCart')}
         </button>
       )}
       
@@ -163,7 +153,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                   {product.name}
                 </h2>
                 <p>
-                  Ürün seçeneklerini inceleyin ve sipariş verin
+                  {t('productDescription')}
                 </p>
               </div>
             </div>

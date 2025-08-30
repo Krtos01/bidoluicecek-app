@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { PRODUCTS } from './data/products';
-import { SOCIAL_MEDIA_LINKS, openSocialMediaLink } from './data/socialMedia';
+import { SOCIAL_MEDIA_LINKS, handleSocialMediaClick } from './data/socialMedia';
 import ProductImage from './components/ProductImage';
 import SocialMediaIcon from './components/SocialMediaIcon';
 import ProductModal from './components/ProductModal';
+import VideoModal from './components/VideoModal';
 import { CartProvider } from './context/CartContext';
 import OrderButton from './components/OrderButton';
 import WelcomeMessage from './components/WelcomeMessage';
+import { toggleLanguage, getCurrentLanguageInfo, t } from './config/language';
 
 // Scroll Indicator Component
 const ScrollIndicator = () => {
@@ -79,39 +81,72 @@ const ScrollDownIndicator = () => {
         '--custom-opacity': opacity 
       }}
     >
-      <div className="scroll-down-content">
-        <div className="scroll-down-arrow">▼</div>
-        <div className="scroll-down-text">Kaydır</div>
-      </div>
+              <div className="scroll-down-content">
+          <div className="scroll-down-arrow">▼</div>
+          <div className="scroll-down-text">{t('scrollDown')}</div>
+        </div>
     </div>
   );
 };
 
 // Header Component
-const Header = () => {
-  const handleSocialMediaClick = (url, target) => {
-    openSocialMediaLink(url, target);
+const Header = ({ onVideoOpen, onLanguageChange }) => {
+  const [currentLang, setCurrentLang] = useState(getCurrentLanguageInfo());
+  
+  const handleSocialClick = (socialMedia) => {
+    if (socialMedia.type === "language") {
+      toggleLanguage();
+      setCurrentLang(getCurrentLanguageInfo());
+      if (onLanguageChange) {
+        onLanguageChange();
+      }
+    } else {
+      handleSocialMediaClick(socialMedia, onVideoOpen);
+    }
   };
 
   return (
     <header className="header">
       <ScrollIndicator />
       <div className="header-container">
-        <div className="logo">
-          <h1>Bİ DOLU İÇECEK</h1>
-        </div>
-        <div className="contact-info">
-          <span className="phone">📞 0555 123 45 67</span>
-        </div>
-        <div className="social-media">
-          {SOCIAL_MEDIA_LINKS.map((socialMedia) => (
-            <SocialMediaIcon
-              key={socialMedia.id}
-              socialMedia={socialMedia}
-              onLinkClick={handleSocialMediaClick}
-              className="social-icon"
+        {/* Sol Taraf: Logo Alanı */}
+        <div className="header-left">
+          <div className="logo-area">
+            {/* Logo buraya gelecek - şimdilik placeholder */}
+            <img 
+              src="/images/logo.png" 
+              alt="Bİ DOLU İÇECEK Logo" 
+              className="header-logo"
+              onError={(e) => {
+                // Logo yoksa text fallback
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
             />
-          ))}
+            <h1 className="logo-fallback">Bİ DOLU İÇECEK</h1>
+          </div>
+        </div>
+
+        {/* Orta: Telefon Numarası */}
+        <div className="header-center">
+          <div className="contact-info">
+            <span className="phone">📞 0530 309 98 87</span>
+          </div>
+        </div>
+
+        {/* Sağ Taraf: Sosyal Medya Daireleri */}
+        <div className="header-right">
+          <div className="social-media">
+            {SOCIAL_MEDIA_LINKS.map((socialMedia) => (
+              <SocialMediaIcon
+                key={socialMedia.id}
+                socialMedia={socialMedia}
+                onLinkClick={handleSocialClick}
+                className="social-icon"
+                currentLanguage={socialMedia.type === "language" ? currentLang : null}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </header>
@@ -162,7 +197,9 @@ const ProductCard = ({ product }) => {
         
         <div className="product-name">{product.name}</div>
         
-        <div className="product-price">{product.price}</div>
+        <div className="product-price">
+          {product.price === "Seçenekleri Görün" ? t('seeOptions') : product.price}
+        </div>
         
         {/* Click to View Options hint */}
         <div className="mt-4 text-center">
@@ -184,10 +221,28 @@ const ProductCard = ({ product }) => {
 
 // Main App Component
 function App() {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [currentVideo, setCurrentVideo] = useState({ url: null, title: "" });
+  const [, setLanguageKey] = useState(0); // Force re-render on language change
+
+  const handleVideoOpen = (videoUrl, videoTitle) => {
+    setCurrentVideo({ url: videoUrl, title: videoTitle });
+    setIsVideoModalOpen(true);
+  };
+
+  const handleVideoClose = () => {
+    setIsVideoModalOpen(false);
+    setCurrentVideo({ url: null, title: "" });
+  };
+
+  const handleLanguageChange = () => {
+    setLanguageKey(prev => prev + 1); // Force re-render
+  };
+
   return (
     <CartProvider>
       <div className="App">
-        <Header />
+        <Header onVideoOpen={handleVideoOpen} onLanguageChange={handleLanguageChange} />
         <ScrollDownIndicator />
         <main className="main-content">
           <div className="products-grid">
@@ -202,6 +257,14 @@ function App() {
         
         {/* Welcome Message */}
         <WelcomeMessage />
+
+        {/* Video Modal */}
+        <VideoModal 
+          isOpen={isVideoModalOpen}
+          onClose={handleVideoClose}
+          videoUrl={currentVideo.url}
+          videoTitle={currentVideo.title}
+        />
       </div>
     </CartProvider>
   );

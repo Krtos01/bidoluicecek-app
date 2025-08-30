@@ -5,6 +5,7 @@ import { trackWhatsAppClick, trackError } from '../utils/analytics';
 import { isServiceOpen, getServiceHoursText, getStoreStatus } from '../config/serviceHours';
 import { validateOrderAmount } from '../config/orderLimits';
 import { checkCartForDamacana } from '../config/damacanaLimits';
+import { t } from '../config/language';
 
 const OrderButton = () => {
   const { getTotalItems, getTotalPrice, getCartMessage, clearCart, items } = useCart();
@@ -95,12 +96,12 @@ const OrderButton = () => {
                 ? 'Geçici Olarak Kapalı'
                 : storeStatus?.maintenanceMode
                   ? 'Bakım Modunda'
-                  : 'Servis Saatleri Dışındadır'
+                  : t('orderUnavailable')
               : !orderValidation.isValid
-                ? orderValidation.message
+                ? t('minimumOrder')
                 : !damacanaValidation.isAllowed
-                  ? damacanaValidation.message
-                  : `Sipariş Ver - ${totalPrice.toFixed(2)} TL`
+                  ? t('damacanaRestricted', { cutoffTime: '19:00' })
+                  : `${t('orderButton')} - ${totalPrice.toFixed(2)} TL`
             }
           </span>
           {serviceOpen && orderValidation.isValid && damacanaValidation.isAllowed && (
@@ -114,7 +115,7 @@ const OrderButton = () => {
                 ? storeStatus.reason
                 : `Servis Saatleri: ${getServiceHoursText()}`
               : !orderValidation.isValid && totalPrice > 0
-                ? `Şu anki sepet: ${totalPrice.toFixed(2)} TL`
+                ? t('currentCart', { amount: totalPrice.toFixed(2) })
                 : !damacanaValidation.isAllowed && damacanaValidation.hasDamacana
                   ? `Damacana siparişleri saat 19:00'dan sonra alınmaz`
                   : ''

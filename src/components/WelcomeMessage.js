@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { t } from '../config/language';
 
 const WelcomeMessage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,7 +37,7 @@ const WelcomeMessage = () => {
         
         <div className="welcome-message-content">
           <div className="welcome-message-icon">!</div>
-          <p>Hoşgeldiniz!Lütfen ilk siparişinizde adresinizi eklemeyi unutmayın, Teşekkürler.</p>
+          <p>{t('welcomeMessage')}</p>
         </div>
         
         <div className="welcome-message-footer">
@@ -44,7 +45,7 @@ const WelcomeMessage = () => {
             onClick={handleClose}
             className="welcome-message-button"
           >
-            Anladım
+            {t('understood')}
           </button>
         </div>
       </div>

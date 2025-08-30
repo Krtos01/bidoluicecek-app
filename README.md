@@ -191,11 +191,15 @@ export const DAMACANA_LIMITS = {
   cutoffHour: 19,
   cutoffMinute: 0,
   
+  // Damacana siparişlerinin kabul edilmeye başladığı saat (ertesi gün)
+  startHour: 13,
+  startMinute: 0,
+  
   // Damacana saat sınırı aktif mi?
   enabled: true,
   
   // Saat sınırı aşıldığında gösterilecek mesaj
-  cutoffMessage: "Damacana siparişleri saat {time}'dan sonra alınmamaktadır",
+  cutoffMessage: "Damacana siparişleri saat {cutoffTime}'dan sonra ve {startTime}'a kadar alınmamaktadır",
   
   // Test modu (true olursa saat sınırı devre dışı)
   testMode: false,
@@ -206,7 +210,9 @@ export const DAMACANA_LIMITS = {
   // Hafta sonu farklı saat (isteğe bağlı)
   weekendCutoffHour: 18, // Hafta sonu 1 saat erken
   weekendCutoffMinute: 0,
-  weekendEnabled: true // false olursa hafta sonu aynı saat
+  weekendStartHour: 13, // Hafta sonu başlangıç saati
+  weekendStartMinute: 0,
+  weekendEnabled: false // false olursa hafta sonu aynı saat
 };
 ```
 
@@ -250,12 +256,18 @@ export const DAMACANA_LIMITS = {
 ### Damacana Saat Sınırı Nasıl Çalışır?
 
 1. **ID kontrolü**: 1 ile biten ürünler (11, 21, 31...) damacana olarak tanınır
-2. **Saat 19:00'dan önce**: Normal sipariş, kartlar tıklanabilir
-3. **Saat 19:00'dan sonra**: 
+2. **Sipariş saatleri**: 13:00 - 19:00 arası (gece yarısını geçen kısıtlama)
+3. **19:00'dan sonra ve 13:00'a kadar**: 
    - Damacana kartları gri olur ve tıklanamaz
-   - "Damacana siparişleri saat 19:00'dan sonra alınmamaktadır" mesajı
+   - "Damacana siparişleri saat 19:00'dan sonra ve 13:00'a kadar alınmamaktadır" mesajı
    - Sepette damacana varsa sipariş butonu gri olur
-4. **Diğer ürünler**: Saat sınırından etkilenmez
+   - **GECEYARISINDAN SONRA DA** sınırlama devam eder
+4. **13:00'dan 19:00'a kadar**: Normal sipariş, kartlar tıklanabilir
+5. **Diğer ürünler**: Saat sınırından etkilenmez
+
+#### ⚠️ Önemli Not
+- **Gece yarısı geçişi**: Sistem saat 19:00'dan sonra başlayan kısıtlamayı ertesi günün 13:00'ına kadar sürdürür
+- **Sürekli denetim**: Sayfa yenilenmeden gerçek zamanlı kontrol yapar
 
 ### Minimum Tutar Nasıl Çalışır?
 
@@ -368,6 +380,110 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 3. Commit edin (`git commit -m 'Add amazing feature'`)
 4. Push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
+
+## 🖼️ Logo Ekleme Rehberi
+
+Header'ın sol tarafında görünecek logo için:
+
+### Logo Dosyası Ekleme
+
+1. **Logo dosyasını ekleyin**: `public/images/logo.png` olarak kaydedin
+2. **Desteklenen formatlar**: PNG, JPG, SVG (PNG önerilen)
+3. **Boyut önerileri**: 
+   - **Genişlik**: 150-250px
+   - **Yükseklik**: 40-60px
+   - **Şeffaf arkaplan** (PNG) önerilen
+
+### Logo Dosya Yapısı
+
+```
+public/
+├── images/
+│   ├── logo.png         ← Ana logo dosyası
+│   ├── logo@2x.png      ← Retina ekranlar için (opsiyonel)
+│   └── logo.svg         ← SVG format (opsiyonel)
+```
+
+### Logo Yoksa Ne Olur?
+
+Logo henüz eklenmemişse:
+- **Text fallback**: "Bİ DOLU İÇECEK" yazısı görünür
+- **Otomatik geçiş**: Logo yüklenemezse text'e geçer
+- **Responsive**: Mobilde küçük, desktop'ta büyük
+
+### Logo Konfigürasyonu
+
+Logo path'ini değiştirmek için `src/App.js` dosyasında:
+
+```javascript
+<img 
+  src="/images/logo.png"  // Logo path'ini buradan değiştirin
+  alt="Bİ DOLU İÇECEK Logo" 
+  className="header-logo"
+/>
+```
+
+## 🎥 Video Ekleme Rehberi
+
+Header'daki sol daireye (🎥) tıklandığında açılacak tanıtım videosu için:
+
+### Video Dosyası Ekleme
+
+1. **Video klasörü oluşturun**: `public/videos/` klasörünü oluşturun
+2. **Video dosyasını ekleyin**: `public/videos/tanitim-video.mp4` olarak kaydedin
+3. **Video konfigürasyonu**: `src/data/socialMedia.js` dosyasında:
+
+```javascript
+{
+  id: 1,
+  name: "Tanıtım Videosu",
+  type: "video",
+  videoUrl: "/videos/tanitim-video.mp4", // Video path'ini buraya ekleyin
+  icon: "/images/video-icon.png", // Video ikonu (opsiyonel)
+  iconPlaceholder: "🎥",
+  target: "modal"
+}
+```
+
+### Desteklenen Video Formatları
+
+- **MP4** (önerilen): En yaygın desteklenen format
+- **WebM**: Modern tarayıcılar için alternatif
+- **OGV**: Eski tarayıcı desteği için
+
+### Video Özellikleri
+
+- **Otomatik oynatma**: Video modal açıldığında başlar
+- **Kontroller**: Oynat/durdur, ses, tam ekran
+- **Responsive**: Mobil ve desktop uyumlu
+- **Poster resmi**: `public/images/video-poster.jpg` (opsiyonel)
+
+### Video Boyutları
+
+- **Maksimum boyut**: 50MB (performans için)
+- **Çözünürlük**: 1920x1080 (Full HD) önerilen
+- **Aspect ratio**: 16:9 (video modal otomatik ayarlar)
+
+### Örnek Video Klasör Yapısı
+
+```
+public/
+├── videos/
+│   ├── tanitim-video.mp4
+│   ├── tanitim-video.webm (opsiyonel)
+│   └── ...
+├── images/
+│   ├── video-poster.jpg (opsiyonel)
+│   ├── video-icon.png (opsiyonel)
+│   └── ...
+```
+
+### Video Yoksa Ne Olur?
+
+Video henüz eklenmemişse:
+- **Placeholder görünümü**: "Video Yakında Eklenecek" mesajı
+- **Mavi gradient arkaplan**: Profesyonel görünüm
+- **Video ikonu**: 🎥 emojisi ile görsel ipucu
 
 ## 📞 İletişim
 

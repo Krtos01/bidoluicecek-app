@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 const SocialMediaIcon = ({ 
   socialMedia,
   onLinkClick,
-  className = "social-icon" 
+  className = "social-icon",
+  currentLanguage = null
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -20,7 +21,7 @@ const SocialMediaIcon = ({
 
   const handleClick = (e) => {
     e.stopPropagation(); // Prevent parent click events
-    onLinkClick(socialMedia.url, socialMedia.target);
+    onLinkClick(socialMedia);
   };
 
   return (
@@ -40,7 +41,10 @@ const SocialMediaIcon = ({
       {/* Placeholder/Fallback */}
       {(!socialMedia.icon || imageError || !imageLoaded) && (
         <span className="text-lg">
-          {socialMedia.iconPlaceholder}
+          {socialMedia.type === "language" && currentLanguage ? 
+            currentLanguage.flag : 
+            socialMedia.iconPlaceholder
+          }
         </span>
       )}
       

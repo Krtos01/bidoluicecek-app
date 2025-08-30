@@ -11,10 +11,12 @@ const ProductImage = ({
   const [imageError, setImageError] = useState(false);
 
   const handleImageLoad = () => {
+    console.log('Image loaded successfully:', src); // Debug için
     setImageLoaded(true);
   };
 
   const handleImageError = () => {
+    console.log('Image failed to load:', src); // Debug için
     setImageError(true);
     setImageLoaded(false);
   };
