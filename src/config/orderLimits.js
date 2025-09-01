@@ -1,13 +1,13 @@
 // Sipariş Limitleri Konfigürasyonu
 export const ORDER_LIMITS = {
   // Minimum sipariş tutarı (TL)
-  minimumOrderAmount: 40,
+  minimumOrderAmount: 400,
   
   // Minimum tutar kontrolü aktif mi?
   minimumOrderEnabled: true,
   
   // Minimum tutara ulaşmadığında gösterilecek mesaj
-  minimumOrderMessage: "Minimum sepet tutarı {amount} TL'dir",
+  minimumOrderMessage: "Minimum sepet tutarı {minimumOrderAmount} TL'dir",
   
   // Maksimum sipariş tutarı (isteğe bağlı)
   maximumOrderAmount: null, // null = sınır yok

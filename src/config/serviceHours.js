@@ -7,8 +7,8 @@ export const DEFAULT_SERVICE_HOURS = {
   startMinute: 30,
   
   // Servis bitiş saati (24 saat formatında)
-  endHour: 22,
-  endMinute: 50,
+  endHour: 20,
+  endMinute: 30,
   
   // Hafta içi servis var mı? (Pazartesi-Cuma)
   weekdaysEnabled: true,
@@ -23,7 +23,7 @@ export const DEFAULT_SERVICE_HOURS = {
   ],
   
   // Test modu (true olursa her zaman açık)
-  testMode: true
+  testMode: false
 };
 
 // Edge Config'den gelen ayarlarla birleştirilen aktif ayarlar

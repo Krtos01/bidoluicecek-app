@@ -19,7 +19,7 @@ export const LANGUAGES = {
       orderUnavailable: "Servis Saatleri Dışındadır",
       
       // Minimum tutar
-      minimumOrder: "Minimum sepet tutarı 40 TL'dir",
+      minimumOrder: "Minimum sepet tutarı {minimumAmount} TL'dir",
       currentCart: "Şu anki sepet: {amount} TL",
       
       // Hoş geldin mesajı
@@ -49,7 +49,7 @@ export const LANGUAGES = {
       orderUnavailable: "خارج ساعات الخدمة",
       
       // Minimum tutar
-      minimumOrder: "الحد الأدنى للسلة 40 ليرة تركية",
+      minimumOrder: "الحد الأدنى للسلة {minimumAmount} ليرة تركية",
       currentCart: "السلة الحالية: {amount} ليرة تركية",
       
       // Hoş geldin mesajı

@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { openWhatsApp } from '../config/whatsapp';
 import { trackWhatsAppClick, trackError } from '../utils/analytics';
 import { isServiceOpen, getServiceHoursText, getStoreStatus } from '../config/serviceHours';
-import { validateOrderAmount } from '../config/orderLimits';
+import { validateOrderAmount, ORDER_LIMITS } from '../config/orderLimits';
 import { checkCartForDamacana } from '../config/damacanaLimits';
 import { t } from '../config/language';
 
@@ -98,7 +98,7 @@ const OrderButton = () => {
                   ? 'Bakım Modunda'
                   : t('orderUnavailable')
               : !orderValidation.isValid
-                ? t('minimumOrder')
+                ? t('minimumOrder', { minimumAmount: ORDER_LIMITS.minimumOrderAmount })
                 : !damacanaValidation.isAllowed
                   ? t('damacanaRestricted', { cutoffTime: '19:00' })
                   : `${t('orderButton')} - ${totalPrice.toFixed(2)} TL`
